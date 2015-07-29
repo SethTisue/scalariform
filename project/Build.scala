@@ -1,7 +1,7 @@
 import sbt._
 import sbt.Keys._
-import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys._
-import com.typesafe.sbteclipse.core.EclipsePlugin._
+//import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys._
+//import com.typesafe.sbteclipse.core.EclipsePlugin._
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
@@ -35,9 +35,9 @@ object ScalariformBuild extends Build {
     ),
     exportJars := true, // Needed for cli oneJar
     retrieveManaged := true,
-    scalacOptions += "-deprecation",
-    EclipseKeys.withSource := true,
-    EclipseKeys.eclipseOutput := Some("bin"))
+    scalacOptions += "-deprecation"//,
+    //EclipseKeys.withSource := true,
+    )//EclipseKeys.eclipseOutput := Some("bin"))
 
   lazy val subprojectSettings = commonSettings ++ Seq(
     ScalariformKeys.preferences <<= baseDirectory.apply(getScalariformPreferences))
@@ -83,13 +83,13 @@ object ScalariformBuild extends Build {
   )
 
   lazy val scalariform: Project = Project("scalariform", file("scalariform"), settings =
-    subprojectSettings ++ sbtbuildinfo.Plugin.buildInfoSettings ++ publishSettings("scalariform") ++ eclipseSettings ++
+    subprojectSettings ++ sbtbuildinfo.Plugin.buildInfoSettings ++ publishSettings("scalariform") ++ // eclipseSettings ++
       Seq(
         libraryDependencies <<= (scalaVersion, libraryDependencies) { (sv, deps) ⇒
           deps ++ get2_11Dependencies(sv) :+ getScalaTestDependency(sv)
         },
         testOptions in Test += Tests.Argument("-oI"),
-        EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Managed,
+        //EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Managed,
         publishTo <<= isSnapshot(getPublishToRepo)))
 
   def getPublishToRepo(isSnapshot: Boolean) =
