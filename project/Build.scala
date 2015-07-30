@@ -63,7 +63,7 @@ object ScalariformBuild extends Build {
   }
 
   def get2_11Dependencies(scalaVersion: String): List[ModuleID] = scalaVersion match {
-    case r"2.11.\d+[-\w]*" => List(
+    case r"2.1[12].\d+[-\w]*" => List(
       "org.scala-lang.modules" %% "scala-xml" % "1.0.1",
       "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.1"
     )
